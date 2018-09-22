@@ -6,11 +6,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+//vue中的轮播图第三方插件
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import fastClick from 'fastclick'
 
-import './assets/styles/border.css'
-import './assets/styles/reset.css'
+import 'swiper/dist/css/swiper.css'
+import 'styles/border.css'
+import 'styles/reset.css'
+import 'styles/iconfont.css'
 
+//添加全局默认参数
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
