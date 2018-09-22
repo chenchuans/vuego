@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <swiper :options="swiperOption" v-if="showSwiper">
-      <swiper-slide v-for="item of list" :key="item.id">
+      <swiper-slide v-for="item of this.swiperList" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl" />
 
       </swiper-slide>
@@ -14,9 +14,9 @@
 <script>
 export default {
   name: 'HomeSwiper',
-//   props: {
-//     list: Array
-//   },
+  props: {
+    swiperList: Array
+  },
   data () {
     return {
       swiperOption: {
@@ -24,24 +24,12 @@ export default {
         loop: true
       },
       //假轮播图数据，其实需要父组件传入
-      list: [{
-          id: '1',
-          imgUrl:'http://img1.qunarzz.com/piao/fusion/1809/9b/8f79dbd1e0941302.jpg_750x200_55829659.jpg'
-      },
-      {
-          id: '2',
-          imgUrl:'http://img1.qunarzz.com/piao/fusion/1809/9b/8f79dbd1e0941302.jpg_750x200_55829659.jpg'
-      },
-      {
-          id: '3',
-          imgUrl:'http://img1.qunarzz.com/piao/fusion/1809/9b/8f79dbd1e0941302.jpg_750x200_55829659.jpg'
-      }
-      ]
+
     }
   },
   computed: {
     showSwiper () {
-      return this.list.length
+      return this.swiperList.length
     }
   }
 }

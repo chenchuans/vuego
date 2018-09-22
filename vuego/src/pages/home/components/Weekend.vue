@@ -6,7 +6,7 @@
             <router-link
                 tag="li"
                 class="item border-bottom"
-                v-for="item of list"
+                v-for="item of this.weekendList"
                 :key="item.id"
                 :to="'/detail/' + item.id"
             >
@@ -26,14 +26,12 @@
 // !!!  注意教程中的热销推荐模块现在被更改了，需要换成现有的本周热门榜单
 export default {
     name: 'HomeRecommend',
+    props: {
+        weekendList: Array
+    },
     data () {
         return {
-            list: [{
-                id: '3322',
-                title: '北京清凉避暑天地',
-                desc: '到大自然中享受"天然空调"',
-                imgUrl: 'http://img1.qunarzz.com/sight/source/1505/53/02091f1ee43d0a.jpg_r_640x214_2e3256b1.jpg'
-            }]
+
         }
     }
 }

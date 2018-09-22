@@ -7,7 +7,7 @@
             <router-link
                 tag="li"
                 class="item border-bottom"
-                v-for="item of reacommendList"
+                v-for="item of this.recommendList"
                 :key="item.id"
                 :to="'/detail/' + item.id"
             >
@@ -25,14 +25,12 @@
 // !!!  注意教程中的热销推荐模块现在被更改了，需要换成现有的本周热门榜单
 export default {
     name: 'HomeList',
+    props: {
+        recommendList: Array
+    },
     data () {
         return {
-            reacommendList: [{
-                id: '3322',
-                title: '故宫',
-                price: '￥20起',
-                imgUrl: 'http://img1.qunarzz.com/sight/p0/1409/19/adca619faaab0898245dc4ec482b5722.jpg_150x150_06cb3e52.jpg'
-            }]
+
         }
     }
 }

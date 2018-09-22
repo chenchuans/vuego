@@ -20,56 +20,11 @@
 <script>
 export default {
   name: 'HomeIcons',
-//   props: {
-//     list: Array
-//   },
+  props: {
+    iconList: Array
+  },
   data () {
     return {
-      iconList: [{
-                id: '235523',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '23623',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '23723',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '237223',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '23323',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '232323',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '23123',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '232113',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            },
-            {
-                id: '233323',
-                imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-                desc: 'lallala'
-            }],
       swiperOption: {
         autoplay: false
       }

@@ -6,7 +6,7 @@
             <router-link
                 tag="li"
                 class="item border-bottom"
-                v-for="item of list"
+                v-for="item of this.recommendList"
                 :key="item.id"
                 :to="'/detail/' + item.id"
             >
@@ -24,14 +24,12 @@
 // !!!  注意教程中的热销推荐模块现在被更改了，需要换成现有的本周热门榜单
 export default {
     name: 'HomeRecommend',
+    props: {
+        recommendList: Array
+    },
     data () {
         return {
-            list: [{
-                id: '3322',
-                title: 'lasdee',
-                desc: 'sdfdgfgfdgf',
-                imgUrl: 'http://img1.qunarzz.com/sight/p0/1409/19/adca619faaab0898245dc4ec482b5722.jpg_150x150_06cb3e52.jpg'
-            }]
+
         }
     }
 }

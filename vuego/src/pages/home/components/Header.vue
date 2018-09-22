@@ -8,8 +8,8 @@
             输入城市/景点/游玩主题</div>
             <router-link to="/city">
                 <div class="header-right">
-                    城市
-                    <!-- {{ this.city }} -->
+                    <!-- 城市 -->
+                    {{ this.city }}
                     <span class="iconfont arrow-icon">&#xe64a;</span>
                 </div>
             </router-link>
@@ -18,7 +18,22 @@
 
 <script>
 export default {
-    name: 'HomeHeader'
+    name: 'HomeHeader',
+    props: {
+        city: {
+            type: String,
+            default: '北京'
+        },
+        hotCities:{
+            type: Array,
+            default: [{
+                id: 1,
+                name: "北京",
+                spell: "beijing",
+            }]
+        },
+        cities: Object
+    }
 }
 </script>
 
