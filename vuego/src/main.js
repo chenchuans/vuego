@@ -5,7 +5,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import store from './store'
 //vue中的轮播图第三方插件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import fastClick from 'fastclick'
@@ -23,6 +23,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   fastClick,
   components: { App },
   template: '<App/>'

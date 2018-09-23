@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="title">热销推荐</div>
+        <div class="title">本周热门榜单</div>
         <ul>
             <!-- 加上border-bottom是为了加上1px的边框 -->
             <router-link

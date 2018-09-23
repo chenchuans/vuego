@@ -15,7 +15,8 @@
             class="search-item border-bottom"
             v-for="item of list"
             :key="item.id"
-            @click="handleCityClick(item.name)"
+            @click="getCityName(item.name)"
+
             >
             {{item.name}}</li>
             <li class="search-item border-bottom" v-show="hasNoData">
@@ -66,12 +67,14 @@ export default {
         }
     },
     methods: {
-        handleCityClick () {
-
+        getCityName (city) {
+            this.$store.commit('changeCity', city)
+            this.$router.push('/')
         },
     },
     mounted () {
-        this.scroll = new Bscroll(this.$refs.search)
+        this.scroll = new Bscroll(this.$refs.search,
+        { mouseWheel: true, click: true, tap: true })
     }
 }
 </script>

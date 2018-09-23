@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button">{{this.city}}</div>
           </div>
         </div>
       </div>
@@ -16,8 +16,9 @@
             class="button-wrapper"
             v-for="item of hotCities"
             :key="item.id"
+            @click="getCityName(item.name)"
           >
-            <div class="button">{{item.name}}</div>
+            <div class="button" >{{item.name}}</div>
           </div>
         </div>
       </div>
@@ -34,6 +35,7 @@
             class="item border-bottom"
             v-for="it of item"
             :key="it.id"
+            @click="getCityName(it.name)"
           >
             {{it.name}}
           </div>
@@ -45,7 +47,7 @@
 
 <script>
 import Bscroll from 'better-scroll'
-// import { mapState, mapMutations } from 'vuex'
+ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CityList',
   props: {
@@ -54,10 +56,15 @@ export default {
       letter: String,
 
   },
+  computed: {
+      ...mapState(['city'])
+  },
   mounted () {
       //在组件挂载完之后，创建scroll实例并将挂载dom元素传入
-      this.scroll = new Bscroll(this.$refs.wrapper)
+      this.scroll = new Bscroll(this.$refs.wrapper,
+       { mouseWheel: true, click: true, tap: true })
   },
+        //加上实例参数后面的，移动端点击事件才会生效
   watch: {
       letter () {
         //$refs会生成数组，当前最新点击的一项传入scrollToElement(element)
@@ -66,6 +73,16 @@ export default {
           this.scroll.scrollToElement(element)
         //   console.log(element)
       }
+  },
+  methods: {
+      getCityName (city) {
+        //1   this.$store.dispatch('changeCity', city)
+        //2   this.$store.commit('changeCity', city)
+        //第三种方法是用...mapMutations(['changeCity'])扩展了
+        this.changeCity(city)
+        this.$router.push('/')
+      },
+      ...mapMutations(['changeCity'])
   }
 
 }

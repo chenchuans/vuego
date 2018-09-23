@@ -4,7 +4,7 @@
         <home-swiper :swiperList="swiperList"></home-swiper>
         <home-icons :iconList="iconList"></home-icons>
         <!-- <home-recommend></home-recommend> -->
-        <home-list :recommendList="recommendList"></home-list>
+        <home-recommend :recommendList="recommendList"></home-recommend>
         <home-weekend :weekendList="weekendList"></home-weekend>
     </div>
 </template>
@@ -13,29 +13,31 @@
 import HomerHeader from './components/Header'
 import HomeSwiper from './components/Swiper'
 import HomeIcons from './components/Icons'
-// import HomeRecommend from './components/Recommend'
-import HomeList from './components/List'
+import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/Weekend'
 
 import axios from 'axios'
-
+import { mapState } from 'vuex'
 export default {
     name: 'Home',
     components: {
         HomerHeader,
         HomeSwiper,
         HomeIcons,
-        HomeList,
+        HomeRecommend,
         HomeWeekend
     },
     data () {
         return {
-
+            lastCity: '',
             swiperList: [],
             iconList: [],
             recommendList: [],
             weekendList: []
         }
+    },
+    computed: {
+        ...mapState(['city'])
     },
     methods: {
         //方法一
@@ -49,7 +51,7 @@ export default {
         //方法二
         async getHomeInfo () {
             //解构赋值出data
-            let {data} = await axios.get('/static/mock/index.json')
+            let {data} = await axios.get('/static/mock/index.json?city=' + this.city)
 
             this.swiperList = data.data.swiperList
             this.iconList = data.data.iconList
@@ -60,9 +62,16 @@ export default {
     },
     mounted () {
         //在此发送ajax请求
+        this.lastCity = this.city
         this.getHomeInfo()
-
-
+    },
+    activated () {
+        //当页面再次显示时，此函数被执行
+        //在此判断返回是否同一个城市，不是则发ajax请求
+        if (this.lastCity !== this.city) {
+            this.lastCity = this.city
+            this.getHomeInfo()
+        }
     }
 }
 </script>
