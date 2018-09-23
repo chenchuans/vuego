@@ -1,7 +1,6 @@
 <template>
     <div>
-        <homer-header :hotCities="hotCities" :city="city"
-        :cities="cities"></homer-header>
+        <homer-header ></homer-header>
         <home-swiper :swiperList="swiperList"></home-swiper>
         <home-icons :iconList="iconList"></home-icons>
         <!-- <home-recommend></home-recommend> -->
@@ -19,7 +18,7 @@ import HomeList from './components/List'
 import HomeWeekend from './components/Weekend'
 
 import axios from 'axios'
-import Axios from 'axios';
+
 export default {
     name: 'Home',
     components: {
@@ -31,9 +30,7 @@ export default {
     },
     data () {
         return {
-            city: '',
-            hotCities: [],
-            cities: {},
+
             swiperList: [],
             iconList: [],
             recommendList: [],
@@ -58,19 +55,13 @@ export default {
             this.iconList = data.data.iconList
             this.recommendList = data.data.recommendList
             this.weekendList = data.data.weekendList
-        },
-        async getCityInfo () {
-            let {data} = await axios.get('/static/mock/city.json')
-            this.cities = data.data.cities
-            this.hotCities = data.data.hotCities
-            this.city = this.hotCities[0].name
-
         }
+
     },
     mounted () {
         //在此发送ajax请求
         this.getHomeInfo()
-        this.getCityInfo()
+
 
     }
 }

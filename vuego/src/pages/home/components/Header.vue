@@ -26,11 +26,13 @@ export default {
         },
         hotCities:{
             type: Array,
-            default: [{
+            default: function () {
+                return [{
                 id: 1,
                 name: "北京",
                 spell: "beijing",
             }]
+            }
         },
         cities: Object
     }
