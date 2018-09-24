@@ -1,11 +1,13 @@
 <template>
-    <div>
-        <homer-header ></homer-header>
+    <div class="container">
+        <div class="header"><homer-header ></homer-header></div>
+        <div class="middle">
         <home-swiper :swiperList="swiperList"></home-swiper>
         <home-icons :iconList="iconList"></home-icons>
         <!-- <home-recommend></home-recommend> -->
         <home-recommend :recommendList="recommendList"></home-recommend>
         <home-weekend :weekendList="weekendList"></home-weekend>
+        </div>
     </div>
 </template>
 
@@ -77,5 +79,14 @@ export default {
 </script>
 
 <style scoped>
-
+    .header{
+        position: fixed;
+        top: 0;
+        z-index: 5;
+        width: 100%;
+    }
+	.middle{
+        margin-top: .9rem;
+        overflow-y: scroll;
+	}
 </style>

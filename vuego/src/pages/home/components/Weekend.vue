@@ -8,7 +8,7 @@
                 class="item border-bottom"
                 v-for="item of this.weekendList"
                 :key="item.id"
-                :to="'/detail/' + item.id"
+                to="/hot"
             >
             <div class="item-img-wrapper">
             <img :src="item.imgUrl"  class="item-img">
