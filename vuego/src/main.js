@@ -6,6 +6,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+//解决低版本安卓浏览器不支持promise
+import 'babel-polyfill'
 //vue中的轮播图第三方插件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import fastClick from 'fastclick'
