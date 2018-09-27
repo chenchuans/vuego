@@ -6,6 +6,8 @@ import router from './router'
 import store from './store/index'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
+import './assets/css/base.css'
+import './assets/css/checkout.css'
 Vue.use(iview)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

@@ -6,9 +6,12 @@
     </h1>
     <div class="right">
       <i-button type="primary" class="login"
-      @click="modal1 = true">Login</i-button>
+      @click="ll">Login</i-button>
 
-      <Badge count="100" overflow-count="99">
+      <Badge
+      v-show="isShop"
+      count="10"
+      overflow-count="99">
         <span
         @click="shop"
         class="demo-badge shopping"></span>
@@ -34,15 +37,19 @@
 export default {
   data () {
     return {
-        modal1: false
+        modal1: false,
+        isShop: true
     }
   },
   methods: {
-    login () {
-      this.$router.push('/shooping')
+    ll () {
+      this.modal1 = !modal1
+      alert(33)
     },
     shop () {
-
+      //先判断是否登录
+      this.$router.push('/shooping')
+      this.isShop = false
     },
     ok () {
       this.$Message.info('点击了确定');

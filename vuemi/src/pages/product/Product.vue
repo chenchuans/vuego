@@ -1,7 +1,51 @@
 <template>
-  <div>商品选购页（主页面）</div>
+
+<div class="accessory-result-page accessory-page">
+  <div class="container">
+    <div class="filter-nav">
+      <span class="sortby">排序:</span>
+      <a href="javascript:void(0)" class="default cur">Default</a>
+      <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+      <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+    </div>
+    <div class="accessory-result">
+      <!-- filter -->
+      <div class="filter stopPop" id="filter">
+        <dl class="filter-price">
+          <dt>价格区间:</dt>
+          <dd><a href="javascript:void(0)">全部</a></dd>
+          <dd><a href="javascript:void(0)">0.00 - 100.00</a></dd>
+          <dd><a href="javascript:void(0)">100.00 - 500.00</a></dd>
+          <dd><a href="javascript:void(0)">500.00 - 1000.00</a></dd>
+          <dd><a href="javascript:void(0)">1000.00 - 2000.00</a></dd>
+        </dl>
+      </div>
+
+      <!-- search result accessories list -->
+      <div class="accessory-list-wrap">
+        <div class="accessory-list col-4">
+          <ul>
+            <li>
+              <div class="pic">
+                <a href="#"><img src="../../assets/img/1.jpg" alt=""></a>
+              </div>
+              <div class="main">
+                <div class="name">XX</div>
+                <div class="price">XX</div>
+                <div class="btn-area">
+                  <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 <script>
+
 export default {
 
 }
