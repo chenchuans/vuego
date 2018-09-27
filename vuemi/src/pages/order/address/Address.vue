@@ -2,55 +2,55 @@
 <div class="container">
           <div class="checkout-addr">
             <div class="page-title-normal">
-              <h2 class="page-title-h2"><span>check out</span></h2>
+              <h2 class="page-title-h2"><span>订单提交</span></h2>
             </div>
-            <!-- process step -->
+            <!-- 步骤进度条 -->
             <div class="check-step">
               <ul>
-                <li class="cur"><span>Confirm</span> address</li>
-                <li><span>View your</span> order</li>
-                <li><span>Make</span> payment</li>
-                <li><span>Order</span> confirmation</li>
+                <li class="cur"><span>确认</span> 地址</li>
+                <li><span>编辑</span> 订单</li>
+                <li><span>确认</span> 支付</li>
+                <li><span>订单</span> 成功</li>
               </ul>
             </div>
 
             <!-- address list -->
             <div class="page-title-normal checkout-title">
-              <h2><span>Shipping address</span></h2>
+              <h2><span>选择地址</span></h2>
             </div>
             <div class="addr-list-wrap">
               <div class="addr-list">
                 <ul>
                   <li>
                     <dl>
-                      <dt>item.userName</dt>
-                      <dd class="address">item.streetName</dd>
-                      <dd class="tel">item.tel</dd>
+                      <dt>用户名</dt>
+                      <dd class="address">地址信息</dd>
+                      <dd class="tel">电话</dd>
                     </dl>
                     <div class="addr-opration addr-del">
-                      <a href="javascript:;" class="addr-del-btn" @click="delAddressConfirm(item.addressId)">
+                      <a href="javascript:;" class="addr-del-btn" >
                         <svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
                       </a>
                     </div>
                     <div class="addr-opration addr-set-default">
-                      <a href="javascript:;" class="addr-set-default-btn" v-if="!item.isDefault" @click="setDefault(item.addressId)"><i>Set default</i></a>
+                      <a href="javascript:;" class="addr-set-default-btn" ><i>设置默认地址</i></a>
                     </div>
-                    <div class="addr-opration addr-default" v-if="item.isDefault">Default address</div>
+                    <div class="addr-opration addr-default">默认地址</div>
                   </li>
                   <li class="addr-new">
                     <div class="add-new-inner">
                       <i class="icon-add">
                         <svg class="icon icon-add"><use xlink:href="#icon-add"></use></svg>
                       </i>
-                      <p>Add new address</p>
+                      <p>添加新的地址</p>
                     </div>
                   </li>
                 </ul>
               </div>
 
               <div class="shipping-addr-more">
-                <a class="addr-more-btn up-down-btn" href="javascript:;" @click="expand" v-bind:class="{'open':limit>3}">
-                  more
+                <a class="addr-more-btn up-down-btn" href="javascript:;" >
+                  更多
                   <i class="i-up-down">
                     <i class="i-up-down-l"></i>
                     <i class="i-up-down-r"></i>
@@ -61,7 +61,7 @@
 
             <!-- shipping method-->
             <div class="page-title-normal checkout-title">
-              <h2><span>Shipping method</span></h2>
+              <h2><span>地址信息</span></h2>
             </div>
             <div class="shipping-method-wrap">
               <div class="shipping-method">
@@ -70,14 +70,18 @@
                     <div class="name">Standard shipping</div>
                     <div class="price">Free</div>
                     <div class="shipping-tips">
-                      <p>Once shipped，Order should arrive in the destination in 1-7 business days</p>
+                      <p>订单确认后一般在一个到七个工作日送达</p>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="next-btn-wrap">
-              <router-link class="btn btn--m btn--red" v-bind:to="{path:'orderConfirm',query:{'addressId':selectedAddrId}}">Next</router-link>
+              <router-link class="btn btn--m le"
+              to="/shopping">返回购物车</router-link>
+              <router-link
+              to="/order/confirm"
+              class="btn btn--m btn--red">编辑地址</router-link>
             </div>
           </div>
         </div>
@@ -100,3 +104,9 @@
   }
 
 </script>
+<style scoped>
+.le{
+  float: left;
+}
+
+</style>

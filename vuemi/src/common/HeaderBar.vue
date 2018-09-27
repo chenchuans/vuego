@@ -6,15 +6,15 @@
     </h1>
     <div class="right">
       <i-button type="primary" class="login"
-      @click="ll">Login</i-button>
+     >Login</i-button>
 
       <Badge
       v-show="isShop"
       count="10"
       overflow-count="99">
-        <span
-        @click="shop"
-        class="demo-badge shopping"></span>
+        <router-link
+        to="/shopping"
+        class="demo-badge shopping"></router-link>
       </Badge>
     </div>
 
@@ -42,14 +42,9 @@ export default {
     }
   },
   methods: {
-    ll () {
-      this.modal1 = !modal1
-      alert(33)
-    },
     shop () {
       //先判断是否登录
       this.$router.push('/shooping')
-      this.isShop = false
     },
     ok () {
       this.$Message.info('点击了确定');
@@ -67,7 +62,8 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  border-bottom: 1px solid red ;
+  /* border-bottom: 1px solid red ; */
+  background: #ffffff;
 }
 .logo{
   margin-left: 50px;
