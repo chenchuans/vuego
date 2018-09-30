@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="header">
+  <div class="header" v-show="isPage">
     <h1 class="logo">
       logo
     </h1>
@@ -36,15 +36,18 @@ export default {
   data () {
     return {
       isLogin: false,
-      user: 'Login'
+      user: 'Login',
+      isPage: true
     }
   },
   watch: {
     user: function (val, oldVal) {
       this.$store.commit('handleLogin',val)
     },
-    $router: function () {
-      console.log(this.$router)
+    $route: function () {
+      // console.log(this.$route)
+      // 只有主页面即商品详情页才会显示头部
+      this.isPage = this.$route.path === '/' ? true : false ;
     }
   },
   methods: {
@@ -113,6 +116,7 @@ export default {
   z-index: 1;
   border-radius: 5px;
   background: #ffffff;
+  text-align: center;
 }
 .logins p{
   margin: 10px 0;

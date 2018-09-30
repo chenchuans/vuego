@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 import iview from 'iview'
+import vueLazyload from 'vue-lazyload'
 import 'iview/dist/styles/iview.css'
 import './assets/css/base.css'
 import './assets/css/checkout.css'
 Vue.use(iview)
+Vue.use(vueLazyload)
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({

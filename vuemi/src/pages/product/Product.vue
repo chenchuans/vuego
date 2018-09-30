@@ -4,19 +4,27 @@
   <div class="container">
     <div class="filter-nav">
       <span class="sortby">排序:</span>
-      <a href="javascript:void(0)" class="filterby ">升序</a>
-      <a href="javascript:void(0)" class="">降序</a>
+      <a href="javascript:void(0)"
+      v-for="(item,index) in sortItem"
+      :key="index"
+      @click="handleSort(index)"
+      :class="{filterby: item.itemStatus}">
+      {{item.itemName}}</a>
     </div>
     <div class="accessory-result">
       <!-- filter -->
       <div class="filter stopPop" id="filter">
         <dl class="filter-price">
           <dt>价格区间:</dt>
-          <dd><a href="javascript:void(0)">All</a></dd>
-          <dd><a href="javascript:void(0)">0.00 - 100.00</a></dd>
-          <dd><a href="javascript:void(0)">100.00 - 500.00</a></dd>
-          <dd><a href="javascript:void(0)">500.00 - 1000.00</a></dd>
-          <dd><a href="javascript:void(0)">1000.00 - 2000.00</a></dd>
+          <dd
+          v-for="(item, index) in priceFilter"
+          :key="index"
+          @click="handlePrice(item, index)"
+          ><a href="javascript:void(0)"
+          :class="{active: item.itemStatus}"
+          >
+          {{item.startPrice}} - {{item.endPrice}}</a></dd>
+
         </dl>
       </div>
 
@@ -28,7 +36,7 @@
             :key="item.productId"
             >
               <div class="pic">
-                <a href="#"><img v-lazy="'../../assets/img/'+item.productImage"  alt=""></a>
+                <a href="#"><img v-lazy="'../../../static/img/'+item.productImage"></a>
               </div>
               <div class="main">
                 <div class="name">{{item.productName}}</div>
@@ -40,8 +48,15 @@
                 </div>
               </div>
             </li>
+
           </ul>
         </div>
+        <div class="pages">
+          <Page
+          :page-size="pageSize"
+          @on-change="handlePage"
+          :total="productList.length"/></div>
+
       </div>
     </div>
   </div>
@@ -52,7 +67,49 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      productList: []
+      productList: [],
+      page: 1,//当前展示的页数
+      pageSize: 8,
+      sortFlag:true,
+      busy:true,
+      loading:false,
+      mdShow:false,
+      mdShowCart:false,
+      sortItem: [{
+        itemName: '升序',
+        itemStatus: true
+      }, {
+        itemName: '降序',
+        itemStatus: false
+      }],
+      priceFilter:[
+        {
+            startPrice:'all',
+            endPrice:'',
+            itemStatus: true
+        },
+        {
+            startPrice:'0.00',
+            endPrice:'100.00',
+            itemStatus: false
+        },
+        {
+          startPrice:'100.00',
+          endPrice:'500.00',
+          itemStatus: false
+        },
+        {
+          startPrice:'500.00',
+          endPrice:'1000.00',
+          itemStatus: false
+        },
+        {
+          startPrice:'1000.00',
+          endPrice:'5000.00',
+          itemStatus: false
+        }
+      ],
+      priceChecked:'all',
     }
   },
   computed: {
@@ -60,10 +117,18 @@ export default {
   },
   methods: {
     async getProductList () {
-      //获取商品列表数据
-      let {data} = await axios.get('/goods');
-      this.productList = data.result.list[0].list;
+      //向后端发送请求,获取商品列表数据
+      let param = {
+        page: this.page,
+        pageSize: this.pageSize,
+        sort:this.sortFlag?1:-1,
+        priceLevel:this.priceChecked
+      };
 
+
+      let {data} = await axios.get('/goods/list', {params: param});
+      this.productList = data.result.list[0].list;
+      console.log(data)
     },
     goShopping (productId) {
       //将商品添加购物车
@@ -74,6 +139,53 @@ export default {
       } else {
         //已经登录,给小购物车添加徽标,用到vuex传数据
         this.$store.commit('handleIconNum', ++num)
+      }
+    },
+    handleSort (index) {//处理排序问题
+    if (!this.sortItem[index].itemStatus) {//如果和上次点击同一个，不处理
+      this.sortItem.forEach((item) => {
+        item.itemStatus = false;
+      })
+      this.sortItem[index].itemStatus = true;
+      this.sort = index === 0 ? 1 : -1 ;
+      //1为升序,0为降序
+      this.getProductList()//向后端发请求
+    }
+    },
+    handlePage (pages) {
+      //这里的函数是iview的分页组件提供的，不用判断和上次点击施法相同
+      //改变页数时重新获取数据
+      this.page = pages;
+      this.getProductList();
+    },
+    handlePrice (priceLevel, index) {
+      //根据价格区间重新发请求
+      //和上次点击同一个，不执行操作
+      if (!this.priceFilter[index].itemStatus) {
+        this.priceFilter.forEach((item) => {
+        item.itemStatus = false;
+      })
+      this.priceFilter[index].itemStatus = true;
+      let level = priceLevel.startPrice;
+
+      switch (level) {
+        case '0.00':
+          this.priceChecked = '1'
+          break;
+        case '100.00':
+          this.priceChecked = '2'
+          break;
+        case '500.00':
+          this.priceChecked = '3'
+          break;
+        case '1000.00':
+          this.priceChecked = '4'
+          break;
+        default:
+          this.priceChecked = 'All'
+          break;
+      }
+      this.getProductList()
       }
     }
   },
@@ -109,6 +221,10 @@ export default {
     text-indent: 10px;
     margin: 18px 0;
   }
+    .filter .active{
+     color: #ee7a23;
+     border-left: 2px solid #ee7a23;
+    }
    .filter a:hover{
      color: #ee7a23;
      border-left: 2px solid #ee7a23;
@@ -122,7 +238,7 @@ export default {
     width: 1010px;
     margin-top: 30px;
     margin-right: -10px;
-
+    position: relative;
   }
   .accessory-list-wrap li{
     float: left;
@@ -135,6 +251,9 @@ export default {
   }
   .pic{
     height: 240px;
+  }
+  .pic img{
+    width: 230px;
   }
   .name{
     font: 400 14px/40px "宋体";
@@ -149,5 +268,9 @@ export default {
     display: inline-block;
     width: 214px;
     margin-left: 10px;
+  }
+  .pages{
+
+    margin: 30px 0;
   }
 </style>
