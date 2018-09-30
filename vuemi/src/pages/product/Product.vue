@@ -43,7 +43,7 @@
                 <div class="price">￥{{item.salePrice}}.00</div>
                 <div class="btn-area">
                   <a href="javascript:;"
-                  @click="goShopping(item.productId)"
+                  @click="addCart(item.productId)"
                   class="btn btn--m">加入购物车</a>
                 </div>
               </div>
@@ -112,6 +112,9 @@ export default {
       priceChecked:'all',
     }
   },
+  mounted () {
+    this.getProductList()
+  },
   computed: {
 
   },
@@ -124,13 +127,26 @@ export default {
         sort:this.sortFlag?1:-1,
         priceLevel:this.priceChecked
       };
-
-
       let {data} = await axios.get('/goods/list', {params: param});
       this.productList = data.result.list[0].list;
-      console.log(data)
+      // console.log(data)
     },
-    goShopping (productId) {
+    getCart (productId) {
+      //let {data} = await
+      console.log(productId)
+      axios.get("/goods/addCart",{productId:productId
+      }).then((res) => {
+        if(res.status==0){//插入成功
+          console.log(res)
+        }else{
+          console.log(res.msg)
+        }
+      });
+
+      // console.log(1+data)
+
+    },
+    addCart (productId) {
       //将商品添加购物车
       let isLogin = this.$store.state.val;
       let num = 0;
@@ -138,9 +154,12 @@ export default {
         alert('请先登录,否则无法加入到购物车中!');
       } else {
         //已经登录,给小购物车添加徽标,用到vuex传数据
-        this.$store.commit('handleIconNum', ++num)
+        this.$store.commit('handleIconNum', ++num);
+        //发送post请求，向后端传递添加后的商品id
+        this.getCart(productId);
       }
     },
+
     handleSort (index) {//处理排序问题
     if (!this.sortItem[index].itemStatus) {//如果和上次点击同一个，不处理
       this.sortItem.forEach((item) => {
@@ -189,9 +208,7 @@ export default {
       }
     }
   },
-  mounted () {
-    this.getProductList()
-  }
+
 }
 </script>
 <style scoped>
