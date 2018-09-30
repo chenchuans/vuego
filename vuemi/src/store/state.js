@@ -1,5 +1,6 @@
-let c = '23'
+
 export default {
-  c: c
+  val: '',
+  iconNum: 0
 }
 // 在此处存放数据

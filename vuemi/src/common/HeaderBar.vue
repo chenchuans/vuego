@@ -5,55 +5,66 @@
       logo
     </h1>
     <div class="right">
-      <i-button type="primary" class="login"
-     >Login</i-button>
-
+      <span
+      @click="handleLogin"
+      class="login">{{user}}</span>
       <Badge
-      v-show="isShop"
-      count="10"
+
+      :count="this.$store.state.iconNum"
       overflow-count="99">
-        <router-link
-        to="/shopping"
-        class="demo-badge shopping"></router-link>
+        <a
+        @click="handleShopping"
+
+        class="demo-badge shopping"></a>
       </Badge>
     </div>
-
-    <Modal
-        :visible.sync="modal1"
-        title="普通的Modal对话框标题"
-        @on-ok="ok"
-        @on-cancel="cancel">
-        <p>对话框内容</p>
-        <p>对话框内容</p>
-        <p>对话框内容</p>
-    </Modal>
+    <div class="logins"
+    v-show="isLogin">
+    <p>请登录您的账号和密码</p>
+      <login @closeLogin="handleLo"></login>
+    </div>
   </div>
-  <div class="banner">
-
-  </div>
+  <div class="zhezhao" v-show="isLogin"></div>
 </div>
 </template>
 <script>
+import Login from './Login'
 export default {
+  components: {
+    Login
+  },
   data () {
     return {
-        modal1: false,
-        isShop: true
+      isLogin: false,
+      user: 'Login'
+    }
+  },
+  watch: {
+    user: function (val, oldVal) {
+      this.$store.commit('handleLogin',val)
+    },
+    $router: function () {
+      console.log(this.$router)
     }
   },
   methods: {
-    shop () {
-      //先判断是否登录
-      this.$router.push('/shooping')
-    },
-    ok () {
-      this.$Message.info('点击了确定');
-    },
-    cancel () {
-      this.$Message.info('点击了取消');
-    }
-  },
+    handleLogin () {
+      this.isLogin = true
 
+    },
+    handleLo (name) {
+      this.isLogin = false
+      this.user = name
+    },
+    handleShopping () {
+      if (this.user !== 'Login') {
+        this.$router.push('/shopping')
+      } else {
+        alert("请先登录")
+      }
+
+    }
+  }
 }
 </script>
 <style scoped>
@@ -91,5 +102,28 @@ export default {
   margin-top: 5px;
   background: url('../assets/img/shopping.png') 0 -3px;
   /* margin: 20px 20px 0 0; */
+}
+.logins{
+  width: 400px;
+  height: 200px;
+  top: 100px;
+  left: 50%;
+  margin-left: -200px;
+  position: absolute;
+  z-index: 1;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.logins p{
+  margin: 10px 0;
+}
+.zhezhao{
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: .3;
+  position: absolute;
+  top: 0;
+
 }
 </style>

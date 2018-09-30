@@ -7,6 +7,7 @@
 </template>
 
 <script>
+//分页组件
   import Counter from './Counter'
 export default {
   name: 'hello',

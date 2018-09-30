@@ -18,21 +18,22 @@
       <div class="md-overlay" v-if="mdShow" @click="closeModal"></div>
     </div>
 </template>
-<style>
-
-</style>
 <script>
+import Login from './Login'
     export default{
-        props:["mdShow"],
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
-        methods:{
-          closeModal(){
-            this.$emit("close");
+      components:{
+        Login
+      },
+      props:["mdShow"],
+      data(){
+          return{
+              msg:'hello vue'
           }
+      },
+      methods:{
+        closeModal(){
+          this.$emit("close");
         }
+      }
     }
 </script>
