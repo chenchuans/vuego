@@ -124,26 +124,27 @@ export default {
       let param = {
         page: this.page,
         pageSize: this.pageSize,
-        sort:this.sortFlag?1:-1,
-        priceLevel:this.priceChecked
+        sort: this.sortFlag?1:-1,
+        priceLevel: this.priceChecked
       };
-      let {data} = await axios.get('/goods/list', {params: param});
-      this.productList = data.result.list[0].list;
-      // console.log(data)
+      console.log(data)
+      let {data} = await axios.get('/goods/list');
+      // this.productList = data.result.list[0].list;
+      console.log(data)
     },
     getCart (productId) {
       //let {data} = await
       console.log(productId)
       axios.get("/goods/addCart",{productId:productId
       }).then((res) => {
-        if(res.status==0){//插入成功
+        if(res.status == 0){//插入成功
           console.log(res)
         }else{
           console.log(res.msg)
         }
       });
 
-      // console.log(1+data)
+      console.log(1+data)
 
     },
     addCart (productId) {
